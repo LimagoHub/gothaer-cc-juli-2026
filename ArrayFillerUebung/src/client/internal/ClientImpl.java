@@ -18,8 +18,8 @@ public class ClientImpl implements Client {
         //System.out.println("Showing first 10 values of Array");
         arrayFiller.fillArray(field);
 
-//        for (int i = 0; i < 10; i++) {
-//            System.out.println(field[i]);
-//        }
+        for (int i = 0; i < 10; i++) {
+            System.out.println(field[i]);
+        }
     }
 }
