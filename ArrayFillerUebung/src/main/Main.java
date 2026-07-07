@@ -4,6 +4,6 @@ public class Main {
 
     public static void main(String[] args) {
         // Client hat methode doSomethingWithLargeArray
-        // ArrayFactory-> createAndFillArray(size=
+        // ArrayFiller-> createAndFillArray(size=
     }
 }
