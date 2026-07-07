@@ -18,7 +18,7 @@ public class NimGame extends AbstractGame<Integer,Integer> {
 
     }
 
-//----------------------- Implemtierungssumpf------------------------------------------------------
+//----------------------- Implemetierungssumpf------------------------------------------------------
     protected void updateBoard() {
         setBoard(getBoard() - getTurn());
     }
