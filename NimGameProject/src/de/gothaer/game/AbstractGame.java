@@ -3,11 +3,11 @@ package de.gothaer.game;
 import de.gothaer.game.player.Player;
 import io.Writer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public abstract class AbstractGame<BOARD,TURN> implements Game {
 
+    private final Deque<String> stack = new ArrayDeque<>();
     private List<Player<BOARD,TURN>> players = new ArrayList<>();
     private final Writer writer;
     private BOARD board;
@@ -42,7 +42,7 @@ public abstract class AbstractGame<BOARD,TURN> implements Game {
     }
 
     @Override
-    public void play() { // Integration
+    public final void play() { // Integration
         while(!isGameOver()) {
             playRound();
         }
