@@ -3,7 +3,7 @@ package tiere;
 public class Schwein {
 
     private String name;
-    private volatile int gewicht;
+    private int gewicht;
 
     public Schwein(final String name) {
         this.name = name;
@@ -27,6 +27,13 @@ public class Schwein {
     }
 
     public void futtern() {
+
+        new Thread(this::futternImpl).start();
+
+
+    }
+
+    private void futternImpl() {
         try {
             Thread.sleep(2000);
             gewicht++;
