@@ -7,7 +7,9 @@ import container.internal.builder.ArrayFillerBuilder;
 import container.internal.decorator.ArrayFillerBenchmarkDecorator;
 import container.internal.sequential.ArrayFillerSequentialImpl;
 import generator.Generator;
+import generator.GeneratorBuilder;
 import generator.internal.random.RandomNumberGenerator;
+import generator.internal.random.RandomNumberGeneratorBuilder;
 import time.Stopwatch;
 import time.internal.StopwatchImpl;
 
@@ -16,22 +18,30 @@ import java.util.random.RandomGenerator;
 public class Bootstrap {
 
     public void startApplication(){
-        createClient().doSomethingWithLargeArray();
+        for(int threadCount = 0; threadCount <= Runtime.getRuntime().availableProcessors(); threadCount++){
+            System.out.println("Running " + threadCount + " threads");
+            createClient(threadCount).doSomethingWithLargeArray();
+        }
+
     }
 
     private Stopwatch createStopwatch(){
         return new StopwatchImpl();
     }
 
-    private Generator<Integer> createGenerator(){
-        return new RandomNumberGenerator();
+    private GeneratorBuilder<Integer> createGeneratorBuilder(){
+        return new RandomNumberGeneratorBuilder();
     }
 
-    private ArrayFiller<Integer> createArrayFiller(){
-        return ArrayFillerBuilder.builder().generator(createGenerator()).build();
+    private ArrayFiller<Integer> createArrayFiller(int threadCount){
+        return ArrayFillerBuilder.<Integer>builder()
+                .generatorBuilder(createGeneratorBuilder())
+                .stopwatch(createStopwatch())
+                .parallel(threadCount)
+                .build();
     }
 
-    private Client createClient() {
-        return new ClientImpl(createArrayFiller());
+    private Client createClient(int threadCount) {
+        return new ClientImpl(createArrayFiller(threadCount));
     }
 }
